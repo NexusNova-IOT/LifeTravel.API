@@ -18,7 +18,7 @@ public class UserQueryServiceImpl implements UserQueryService {
 
     @Override
     public User handle(GetUserByIdQuery query) {
-        return userRepository.findById(query.uid())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + query.uid()));
+        return userRepository.findById(query.id())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + query.id()));
     }
 }

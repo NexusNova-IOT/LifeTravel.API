@@ -11,6 +11,6 @@ import java.util.Optional;
 @Repository
 public interface AgencyRepository extends JpaRepository<Agency, Long> {
 
-    @Query("select a from Agency a where a._deleted=false and a.user.id=:userId")
+    @Query("select a from Agency a where a.deleted=false and a.user.id=:userId")
     Optional<Agency> findByUserId(@Param("userId") String userId);
 }

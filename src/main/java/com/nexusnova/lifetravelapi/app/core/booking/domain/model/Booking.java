@@ -8,8 +8,6 @@ import com.nexusnova.lifetravelapi.app.shared.domain.model.AuditModel;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Formula;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Date;
@@ -22,8 +20,6 @@ import java.util.Date;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "bookings")
-@Where(clause = "_deleted = false")
-@SQLDelete(sql = "UPDATE bookings SET _deleted = true WHERE id = ?")
 public class Booking extends AuditModel {
 
     @Formula("concat(serie,'-', number)")

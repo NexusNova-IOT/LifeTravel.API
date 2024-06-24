@@ -1,47 +1,20 @@
 package com.nexusnova.lifetravelapi.app.iam.identity.resources.requests;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
+import lombok.Setter;
 
-@Schema(description="Usuario (Request)")
+
+@Getter
+@Setter
+@Schema(description="User (Request)")
 public class UserRequestDto {
-    @Schema(description="Id del Usuario")
+    @Schema(description="User Id from Firebase")
     private String id;
-    @Schema(description="Nombre del Usuario")
+    @Schema(description="User Name")
     private String name;
-    @Schema(description="Email del Usuario")
+    @Schema(description="User Email")
     private String email;
-    @Schema(description="Url de la foto del Usuario")
+    @Schema(description="User Photo URL")
     private String photoUrl;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhotoUrl() {
-        return photoUrl;
-    }
-
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
-    }
 }

@@ -17,7 +17,7 @@ public class AgencyCommandServiceImpl implements AgencyCommandService {
     private final ValidationUtil validationUtil;
 
     public AgencyCommandServiceImpl(AgencyRepository agencyRepository,
-                                    ValidationUtil validationUtil) {
+            ValidationUtil validationUtil) {
         this.agencyRepository = agencyRepository;
         this.validationUtil = validationUtil;
     }
@@ -34,6 +34,7 @@ public class AgencyCommandServiceImpl implements AgencyCommandService {
         AgencyRequestDto requestDto = command.agencyRequestDto();
 
         agency.setUser(user);
+        agency.setDeleted(user.getDeleted());
         agency.setLegalName(requestDto.getLegalName());
         agency.setRUC(requestDto.getRUC());
         agency.setAddress(requestDto.getAddress());

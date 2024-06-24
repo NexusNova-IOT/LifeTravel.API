@@ -1,21 +1,24 @@
 package com.nexusnova.lifetravelapi.app.iam.outbound.services;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
-import io.grpc.netty.shaded.io.netty.channel.FixedRecvByteBufAllocator;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.core.env.Environment;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
-import java.util.concurrent.ExecutionException;
 
 public class FirebaseAuthenticationFilter extends OncePerRequestFilter {
+    private final Environment environment;
+
+    public FirebaseAuthenticationFilter(Environment environment) {
+        this.environment = environment;
+    }
 
     private static final String[] AUTH_WHITELIST_PUBLIC = {
             "/v2/api-docs",
@@ -38,6 +41,12 @@ public class FirebaseAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
 
+        // Check if the active profile is "local"
+        if (Arrays.asList(environment.getActiveProfiles()).contains("local")) {
+            // If the profile is "local", skip the filter
+            chain.doFilter(request, response);
+            return;
+        }
         // Check if the request is whitelisted
         boolean isWhitelisted = Arrays.stream(AUTH_WHITELIST_PUBLIC)
                 .anyMatch(path -> request.getServletPath().startsWith(path));
@@ -75,8 +84,8 @@ public class FirebaseAuthenticationFilter extends OncePerRequestFilter {
         } else {
             try {
                 FirebaseToken firebaseToken = FirebaseAuth.getInstance().verifyIdToken(token);
-                System.out.println(firebaseToken.getEmail());
-            } catch (Throwable e) {
+                logger.info(firebaseToken.getEmail());
+            } catch (Exception e) {
                 logger.error("Error verifying Firebase token: " + e.getMessage(), e);
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 // Create a JSON response indicating the error

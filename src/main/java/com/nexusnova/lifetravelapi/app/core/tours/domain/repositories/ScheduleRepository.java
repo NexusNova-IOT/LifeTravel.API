@@ -13,10 +13,10 @@ import java.util.List;
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 
-    @Query("select s from Schedule s where s._deleted=false and s.tourPackage.id=:packageId")
+    @Query("select s from Schedule s where s.deleted=false and s.tourPackage.id=:packageId")
     List<Schedule> finByPackageId(@Param("packageId") Long packageId);
     @Transactional
     @Modifying
-    @Query("update Schedule s set s._deleted = true where s.tourPackage.id = :tourPackageId")
+    @Query("update Schedule s set s.deleted = true where s.tourPackage.id = :tourPackageId")
     void deleteAllByTourPackageId(@Param("tourPackageId") Long tourPackageId);
 }

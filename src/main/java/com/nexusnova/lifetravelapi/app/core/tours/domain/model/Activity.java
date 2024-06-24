@@ -3,8 +3,6 @@ package com.nexusnova.lifetravelapi.app.core.tours.domain.model;
 import com.nexusnova.lifetravelapi.app.shared.domain.model.AuditModel;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.validation.constraints.Null;
@@ -18,8 +16,6 @@ import java.util.Set;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "activities")
-@Where(clause = "_deleted = false")
-@SQLDelete(sql = "UPDATE activities SET _deleted = true WHERE id = ?")
 public class Activity extends AuditModel {
 
     @Column(name = "title")

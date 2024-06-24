@@ -11,6 +11,6 @@ import java.util.Optional;
 @Repository
 public interface TouristRepository extends JpaRepository<Tourist, Long> {
 
-    @Query("select t from Tourist t where t._deleted=false and t.user.id =:userId")
+    @Query("select t from Tourist t where t.deleted=false and t.user.id =:userId")
     Optional<Tourist> findByUserId(@Param("userId") String userId);
 }

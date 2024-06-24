@@ -8,7 +8,6 @@ import com.nexusnova.lifetravelapi.app.shared.domain.model.AuditModel;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Formula;
-import org.hibernate.annotations.SQLDelete;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
@@ -19,8 +18,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "weather_sensors")
-//@Where(clause = "_deleted = false")
-@SQLDelete(sql = "UPDATE weather_sensors SET _deleted = true WHERE id = ?")
 public class WeatherSensor extends AuditModel {
 
 

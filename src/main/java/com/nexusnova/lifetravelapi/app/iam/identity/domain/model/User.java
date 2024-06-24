@@ -19,13 +19,11 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Data
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "users")
-@Where(clause = "_deleted = false")
-@SQLDelete(sql = "UPDATE users SET _deleted = true WHERE id = ?")
-public class    User implements Serializable {
-
+@Where(clause = "deleted = false")
+@SQLDelete(sql = "UPDATE users SET deleted = true WHERE id = ?")
+public class User implements Serializable {
     @Id
     private String id;
 
@@ -42,6 +40,7 @@ public class    User implements Serializable {
     @Column(name = "google_photo_url")
     private String googlePhotoUrl;
 
+    // TODO: Solve SonarLint issue: Make "role" transient or serializable.
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "role_id", nullable = false)
     @JsonIgnore
@@ -51,13 +50,13 @@ public class    User implements Serializable {
     @CreatedDate
     private Date createdDate;
 
-    @Column(name="_deleted")
+    @Column(name="deleted")
     @NotNull
-    private Boolean _deleted;
+    private Boolean deleted;
 
     @PrePersist
     private void prePersist(){
-        _deleted = false;
+        deleted = false;
         createdDate = new Date();
     }
 }

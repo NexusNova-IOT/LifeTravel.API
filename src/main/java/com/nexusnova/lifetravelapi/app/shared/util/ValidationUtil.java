@@ -11,6 +11,9 @@ import com.nexusnova.lifetravelapi.app.core.transportation.domain.repositories.V
 import com.nexusnova.lifetravelapi.app.shared.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Set;
+
 import static com.nexusnova.lifetravelapi.app.shared.util.CoreConstants.AGENCY_ROLE_ID;
 import static com.nexusnova.lifetravelapi.app.shared.util.CoreConstants.TOURIST_ROLE_ID;
 
@@ -122,6 +125,10 @@ public class ValidationUtil {
     public TourPackage findTourPackageById(Long id) {
         return tourPackageRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("TourPackage not found with id: " + id));
+    }
+
+    public List<TourPackage> findTourPackagesByIds(List<Long> ids) {
+        return tourPackageRepository.findByIdIn(ids);
     }
 
 }

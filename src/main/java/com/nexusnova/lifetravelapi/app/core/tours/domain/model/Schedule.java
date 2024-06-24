@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nexusnova.lifetravelapi.app.shared.domain.model.AuditModel;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
@@ -16,8 +14,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "schedule")
-@Where(clause = "_deleted = false")
-@SQLDelete(sql = "UPDATE schedule SET _deleted = 1 WHERE id = ?")
 public class Schedule extends AuditModel {
 
     @Column(name = "day")

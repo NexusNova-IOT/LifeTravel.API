@@ -8,6 +8,7 @@ import com.nexusnova.lifetravelapi.app.iam.identity.domain.repositories.UserRepo
 import com.nexusnova.lifetravelapi.app.iam.identity.resources.requests.UserRequestDto;
 import com.nexusnova.lifetravelapi.app.iam.identity.service.UserCommandService;
 import com.nexusnova.lifetravelapi.app.shared.util.ValidationUtil;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,8 +43,13 @@ public class UserCommandServiceImpl implements UserCommandService {
     private User getUser(User user, Role role, UserRequestDto userRequestDto) {
         user.setId(userRequestDto.getId());
         user.setEmail(userRequestDto.getEmail());
-        user.setGoogleName(userRequestDto.getName());
-        user.setGooglePhotoUrl(userRequestDto.getPhotoUrl());
+        if (userRequestDto.getName() != null) {
+            user.setGoogleName(userRequestDto.getName());
+        }
+        user.setGoogleName(RandomStringUtils.randomAlphabetic(10) + userRequestDto.getEmail());
+        if (userRequestDto.getPhotoUrl() != null)  {
+            user.setGooglePhotoUrl(userRequestDto.getPhotoUrl());
+        }
         user.setRole(role);
 
         userRepository.save(user);

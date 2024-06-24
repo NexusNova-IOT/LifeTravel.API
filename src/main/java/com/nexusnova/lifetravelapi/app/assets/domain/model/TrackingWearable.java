@@ -8,8 +8,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Null;
 import lombok.*;
 import org.hibernate.annotations.Formula;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
@@ -22,8 +20,6 @@ import java.math.BigDecimal;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "tracking_wereables")
-@Where(clause = "_deleted = false")
-@SQLDelete(sql = "UPDATE tracking_wereables SET _deleted = true WHERE id = ?")
 public class TrackingWearable extends AuditModel {
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)

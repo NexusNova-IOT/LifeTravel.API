@@ -1,14 +1,11 @@
 package com.nexusnova.lifetravelapi.app.iam.profile.domain.model;
 
-
 import com.nexusnova.lifetravelapi.app.iam.identity.domain.model.User;
 import com.nexusnova.lifetravelapi.app.assets.domain.model.TrackingWearable;
 import com.nexusnova.lifetravelapi.app.shared.domain.model.AuditModel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 
 import java.util.Date;
 
@@ -19,8 +16,6 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tourists")
-@Where(clause = "_deleted = false")
-@SQLDelete(sql = "UPDATE tourists SET _deleted = true WHERE id = ?")
 public class Tourist extends AuditModel {
 
     @OneToOne(fetch = FetchType.LAZY)

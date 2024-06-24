@@ -3,11 +3,10 @@ package com.nexusnova.lifetravelapi.app.core.tours.domain.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nexusnova.lifetravelapi.app.iam.profile.domain.model.Agency;
 import com.nexusnova.lifetravelapi.app.core.transportation.domain.model.Vehicle;
+import com.nexusnova.lifetravelapi.app.reporting.domain.model.Review;
 import com.nexusnova.lifetravelapi.app.shared.domain.model.AuditModel;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.validation.constraints.Max;
@@ -22,8 +21,6 @@ import java.util.List;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "tour_packages")
-@Where(clause = "_deleted = false")
-@SQLDelete(sql = "UPDATE tour_packages SET _deleted = true WHERE id = ?")
 public class TourPackage extends AuditModel {
     @Column(name = "title")
     private String title;
@@ -81,4 +78,7 @@ public class TourPackage extends AuditModel {
             joinColumns = @JoinColumn(name = "tour_package_id"),
             inverseJoinColumns = @JoinColumn(name = "vehicle_id"))
     private List<Vehicle> vehicles;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tourPackage", cascade = CascadeType.ALL)
+    private List<Review> reviews;
 }

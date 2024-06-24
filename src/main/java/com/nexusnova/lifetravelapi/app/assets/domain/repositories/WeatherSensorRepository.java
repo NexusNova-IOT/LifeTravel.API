@@ -16,10 +16,10 @@ public interface WeatherSensorRepository extends JpaRepository<WeatherSensor, Lo
 
     @Query("select b.tourPackage.id " +
             "from Booking b " +
-            "where b._deleted=false and b.touristUser.id=:touristUserId and b.selectedDate>=:today")
+            "where b.deleted=false and b.touristUser.id=:touristUserId and b.selectedDate>=:today")
     Optional<Long> findFirstBooking(@Param("today") Date today,
                                     @Param("touristUserId") String touristUserId);
 
-    @Query("select d from Destination d where d._deleted=false and d.tourPackage.id=:packageId")
+    @Query("select d from Destination d where d.deleted=false and d.tourPackage.id=:packageId")
     List<Destination> findFirstWeatherSensor(@Param("packageId") Long packageId);
 }

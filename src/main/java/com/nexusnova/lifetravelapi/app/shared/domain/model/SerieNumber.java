@@ -5,8 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Table;
 import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
@@ -17,8 +15,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "correlative")
-@Where(clause = "_deleted = false")
-@SQLDelete(sql = "UPDATE correlative SET _deleted = true WHERE id = ?")
 public class SerieNumber extends AuditModel {
 
     @Column(name = "serie")

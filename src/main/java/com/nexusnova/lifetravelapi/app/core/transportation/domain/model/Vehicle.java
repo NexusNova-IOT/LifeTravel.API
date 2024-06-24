@@ -6,8 +6,6 @@ import com.nexusnova.lifetravelapi.app.core.transportation.domain.enums.VehicleS
 import com.nexusnova.lifetravelapi.app.shared.domain.model.AuditModel;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
@@ -20,8 +18,6 @@ import java.math.BigDecimal;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "vehicles")
-@Where(clause = "_deleted = false")
-@SQLDelete(sql = "UPDATE vehicles SET _deleted = true WHERE id = ?")
 
 public class Vehicle extends AuditModel {
     @Column(name = "brand")

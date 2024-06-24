@@ -4,7 +4,9 @@ import com.nexusnova.lifetravelapi.app.iam.profile.domain.commands.CreateAgencyC
 import com.nexusnova.lifetravelapi.app.iam.profile.resources.requests.AgencyRequestDto;
 
 public class RegisterAgencyCommandFromDtoAssembler {
-    public static CreateAgencyCommand toCommandFromDto(String uid, AgencyRequestDto requestDto){
-        return new CreateAgencyCommand(uid, requestDto);
+    private RegisterAgencyCommandFromDtoAssembler() {
+    }
+    public static CreateAgencyCommand toCommandFromDto(String id, AgencyRequestDto requestDto){
+        return new CreateAgencyCommand(id, requestDto);
     }
 }

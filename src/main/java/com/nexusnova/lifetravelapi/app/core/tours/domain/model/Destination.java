@@ -4,8 +4,6 @@ import com.nexusnova.lifetravelapi.app.assets.domain.model.WeatherSensor;
 import com.nexusnova.lifetravelapi.app.shared.domain.model.AuditModel;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
@@ -18,8 +16,6 @@ import java.math.BigDecimal;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "destinations")
-@Where(clause = "_deleted = false")
-@SQLDelete(sql = "UPDATE destinations SET _deleted = 1 WHERE id = ?")
 public class Destination extends AuditModel {
 
     @Column(name = "latitude", columnDefinition = "decimal(13,10)")

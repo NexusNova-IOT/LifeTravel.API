@@ -2,13 +2,12 @@ package com.nexusnova.lifetravelapi.app.iam.profile.domain.model;
 
 import com.nexusnova.lifetravelapi.app.core.tours.domain.model.TourPackage;
 import com.nexusnova.lifetravelapi.app.iam.identity.domain.model.User;
+import com.nexusnova.lifetravelapi.app.reporting.domain.model.Report;
 import com.nexusnova.lifetravelapi.app.shared.domain.model.AuditModel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 
 import java.util.Set;
 
@@ -19,8 +18,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "agencies")
-@Where(clause = "_deleted = false")
-@SQLDelete(sql = "UPDATE agencies SET _deleted = true WHERE id = ?")
 public class Agency extends AuditModel {
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -54,5 +51,6 @@ public class Agency extends AuditModel {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "agency")
     private Set<TourPackage> tourPackages;
 
-
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "agency")
+    private Set<Report> reports;
 }

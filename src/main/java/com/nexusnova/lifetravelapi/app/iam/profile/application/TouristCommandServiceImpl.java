@@ -30,7 +30,7 @@ public class TouristCommandServiceImpl implements TouristCommandService {
     @Override
     public Tourist handle(CreateTouristCommand command) {
         Tourist tourist = new Tourist();
-        User user = validationUtil.findUserById(command.uid());
+        User user = validationUtil.findUserById(command.id());
         TouristRequestDto requestDto = command.touristRequestDto();
 
         tourist.setUser(user);

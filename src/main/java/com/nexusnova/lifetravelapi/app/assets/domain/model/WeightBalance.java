@@ -6,8 +6,6 @@ import com.nexusnova.lifetravelapi.app.shared.domain.model.AuditModel;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Formula;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
@@ -18,8 +16,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "weight_balances")
-@Where(clause = "_deleted = false")
-@SQLDelete(sql = "UPDATE weight_balances SET _deleted = true WHERE id = ?")
 public class WeightBalance extends AuditModel {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
