@@ -63,6 +63,7 @@ public class FirebaseAuthenticationFilter extends OncePerRequestFilter {
         if (token != null && token.startsWith("Bearer ")) {
             token = token.substring(7);
         }
+        /*
         if (token == null) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             // Create a JSON response indicating the error
@@ -88,6 +89,7 @@ public class FirebaseAuthenticationFilter extends OncePerRequestFilter {
                 }
             }
         }
+         */
 
         // Continue the filter chain
         chain.doFilter(request, response);

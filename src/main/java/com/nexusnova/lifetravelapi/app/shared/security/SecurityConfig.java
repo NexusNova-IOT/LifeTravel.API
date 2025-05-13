@@ -11,7 +11,6 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 @Configuration
 @EnableWebSecurity
-//@EnableMethodSecurity
 public class SecurityConfig {
     @Bean
     public FirebaseAuthenticationFilter firebaseAuthenticationFilter() {
